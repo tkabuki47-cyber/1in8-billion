@@ -1,0 +1,37 @@
+{
+ "id": "/ar/",
+ "name": "1 من 8 مليار",
+ "short_name": "1in8b",
+ "description": "لعبة محاكاة الحياة المجانية 1 من 8 مليار (1in8b): تولد عشوائيًا كأحد المواليد الجدد اليوم وتعيش حياة كاملة استنادًا إلى إحصاءات حقيقية من 172 دولة. بدون تسجيل. أين ستولد؟",
+ "lang": "ar",
+ "dir": "rtl",
+ "start_url": "index.html?ref=home",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#141D21",
+ "theme_color": "#8C1D3C",
+ "categories": [
+  "games",
+  "simulation",
+  "education"
+ ],
+ "icons": [
+  {
+   "src": "../icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any maskable"
+  },
+  {
+   "src": "../icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  },
+  {
+   "src": "../apple-touch-icon.png",
+   "sizes": "180x180",
+   "type": "image/png"
+  }
+ ]
+}

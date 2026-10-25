@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>لوحة تحكم الداعمين وقائمة الشرف · 1 من 8 مليار (خاص بالمدير)</title>
+  <link rel="icon" href="../favicon.png" type="image/png">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <meta name="theme-color" content="#181A20">
+  <style>
+    :root {
+      --bg: #0B0E11;
+      --card: #181A20;
+      --card-inner: #2B313A;
+      --border: #2F3640;
+      --gold: #F0B90B;
+      --gold-hover: #FCD535;
+      --gold-soft: rgba(240, 185, 11, 0.12);
+      --ink: #FFFFFF;
+      --ink2: #B7BDC6;
+      --ink3: #848E9C;
+      --success: #0ECB81;
+      --danger: #F6465D;
+      --font: 'Cairo', 'Tajawal', system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      direction: rtl;
+      text-align: right;
+      line-height: 1.6;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    /* Security Login Screen */
+    #loginScreen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+    }
+    .login-box {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 30px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      position: relative;
+    }
+    .login-logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: block;
+      filter: drop-shadow(0 4px 14px rgba(240,185,11,0.4));
+    }
+    .login-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .login-desc {
+      font-size: 13px;
+      color: var(--ink2);
+      margin-bottom: 24px;
+    }
+
+    /* Dashboard Header */
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .header-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      filter: drop-shadow(0 2px 8px rgba(240,185,11,0.3));
+    }
+    .header-titles h1 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .header-titles p {
+      font-size: 13px;
+      color: var(--ink2);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      border: none;
+    }
+    .btn-gold {
+      background: var(--gold);
+      color: #1E2329;
+      box-shadow: 0 2px 8px rgba(240,185,11,0.35);
+    }
+    .btn-gold:hover {
+      background: var(--gold-hover);
+      transform: translateY(-1px);
+    }
+    .btn-ghost {
+      background: var(--card-inner);
+      color: var(--ink);
+      border: 1.5px solid var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .btn-danger {
+      background: rgba(246, 70, 93, 0.15);
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+    .btn-danger:hover {
+      background: var(--danger);
+      color: #fff;
+    }
+    .btn-sm {
+      padding: 5px 12px;
+      font-size: 12px;
+      border-radius: 6px;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .stat-info h3 {
+      font-size: 13px;
+      color: var(--ink3);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+    .stat-info .stat-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--ink);
+      font-family: 'Cascadia Code', var(--font);
+    }
+    .stat-icon {
+      font-size: 32px;
+      line-height: 1;
+      padding: 12px;
+      border-radius: 12px;
+      background: var(--gold-soft);
+    }
+
+    /* Main Dashboard Layout */
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 880px) {
+      .dashboard-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .panel-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Supporters List */
+    .supporters-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .supporter-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: var(--card-inner);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .supporter-item:hover {
+      border-color: rgba(240, 185, 11, 0.5);
+      transform: translateX(-2px);
+    }
+    .supporter-item.rank-1 {
+      border-color: var(--gold);
+      background: linear-gradient(135deg, rgba(240,185,11,0.14) 0%, var(--card-inner) 100%);
+    }
+    .supporter-item.rank-2 {
+      border-color: #94A3B8;
+      background: linear-gradient(135deg, rgba(148,163,184,0.12) 0%, var(--card-inner) 100%);
+    }
+    .supporter-item.rank-3 {
+      border-color: #CD7F32;
+      background: linear-gradient(135deg, rgba(205,127,50,0.1) 0%, var(--card-inner) 100%);
+    }
+    .supporter-item.vacant {
+      border-style: dashed;
+      opacity: 0.85;
+    }
+    .item-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .item-medal {
+      font-size: 28px;
+      line-height: 1;
+    }
+    .item-details h4 {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .item-details p {
+      font-size: 12px;
+      color: var(--ink2);
+      margin-top: 2px;
+    }
+    .item-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .item-amount-box {
+      text-align: left;
+    }
+    .item-amount {
+      font-family: 'Cascadia Code', monospace;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .item-level {
+      font-size: 10.5px;
+      background: rgba(0,0,0,0.3);
+      padding: 2px 7px;
+      border-radius: 4px;
+      color: var(--ink3);
+      border: 1px solid var(--border);
+    }
+    .item-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .act-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--ink);
+      padding: 6px 9px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.15s;
+    }
+    .act-btn:hover {
+      background: var(--gold);
+      color: #1E2329;
+      border-color: var(--gold);
+    }
+    .act-btn.del:hover {
+      background: var(--danger);
+      color: #fff;
+      border-color: var(--danger);
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink2);
+      margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%;
+      background: var(--card-inner);
+      border: 1.5px solid var(--border);
+      color: var(--ink);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-control:focus {
+      border-color: var(--gold);
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--gold);
+      color: #1E2329;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      z-index: 9999;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .code-editor {
+      width: 100%;
+      height: 120px;
+      background: #0B0E11;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: #0ECB81;
+      font-family: 'Cascadia Code', monospace;
+      font-size: 12px;
+      padding: 10px;
+      direction: ltr;
+      text-align: left;
+      resize: vertical;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 1. Security Lock Screen -->
+<div id="loginScreen">
+  <div class="login-box">
+    <img src="../game_icon_circle.png" alt="شعار اللعبة" class="login-logo">
+    <h2 class="login-title">🔐 التحقق الأمني · لوحة إدارة الداعمين</h2>
+    <p class="login-desc">هذه الصفحة محمية وخاصة بمالك اللعبة فقط لإدارة قائمة الشرف والتبرعات.</p>
+
+    <form onsubmit="handleLogin(event)">
+      <div class="form-group" style="text-align:right;">
+        <label>كلمة المرور السرية (Master Password):</label>
+        <input type="password" id="adminPassInput" class="form-control" placeholder="أدخل كلمة المرور..." autofocus required>
+        <p id="loginError" style="color:var(--danger); font-size:12px; margin-top:6px; display:none;">❌ كلمة المرور غير صحيحة، حاول مجدداً.</p>
+      </div>
+      <button type="submit" class="btn btn-gold" style="width:100%; justify-content:center; padding:12px;">
+        🔓 تسجيل الدخول الآمن
+      </button>
+    </form>
+    <div style="margin-top:16px;">
+      <a href="index.html" style="font-size:12.5px; color:var(--ink3); text-decoration:none;">← العودة إلى اللعبة</a>
+    </div>
+  </div>
+</div>
+
+<!-- 2. Protected Admin Dashboard Container -->
+<div class="container" id="dashboardContent" style="display:none;">
+  
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="header-brand">
+      <img src="../game_icon_circle.png" alt="شعار اللعبة" class="header-logo">
+      <div class="header-titles">
+        <h1>لوحة تحكم الداعمين وقائمة الشرف 👑</h1>
+        <p>إدارة وتحديث قائمة أفضل 5 داعمين ومبالغ الدعم في لعبة 1 من 8 مليار</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a href="index.html" target="_blank" class="btn btn-ghost" title="فتح اللعبة في تبويب جديد لمعاينة التعديلات">
+        🎮 معاينة اللعبة
+      </a>
+      <button type="button" class="btn btn-gold" onclick="saveAllAndSync()" title="حفظ التغييرات وتطبيقها فوراً">
+        💾 حفظ وتطبيق في اللعبة
+      </button>
+      <button type="button" class="btn btn-danger btn-sm" onclick="handleLogout()" title="تسجيل الخروج وقفل اللوحة">
+        🔒 قفل اللوحة
+      </button>
+    </div>
+  </header>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-info">
+        <h3>إجمالي الداعمين المسجلين</h3>
+        <div class="stat-value" id="statCount">5</div>
+      </div>
+      <div class="stat-icon">👥</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-info">
+        <h3>مجموع الدعم التقريبي</h3>
+        <div class="stat-value" id="statTotalUSDT">180 USDT</div>
+      </div>
+      <div class="stat-icon">💰</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-info">
+        <h3>الداعم الماسي #1</h3>
+        <div class="stat-value" id="statTopName" style="font-size:16px;">فاعل خير 👑</div>
+      </div>
+      <div class="stat-icon">🥇</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-info">
+        <h3>حالة الأمان</h3>
+        <div class="stat-value" style="color:var(--success); font-size:16px;">محمية 100% 🛡️</div>
+      </div>
+      <div class="stat-icon">⚡</div>
+    </div>
+  </div>
+
+  <!-- Dashboard Layout -->
+  <div class="dashboard-layout">
+    
+    <!-- Left Column: Supporters List -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>🏆 ترتيب أفضل الداعمين الحالي (Top 5)</span>
+        </div>
+        <div style="display:flex; gap:6px;">
+          <button type="button" class="btn btn-ghost btn-sm" onclick="resetToDefaults()" title="استعادة القائمة الأصلية الافتراضية">
+            🔄 استعادة الافتراضي
+          </button>
+          <button type="button" class="btn btn-ghost btn-sm" onclick="autoSortByAmount()" title="ترتيب القائمة تلقائياً حسب قيمة المبلغ">
+            📊 فرز حسب المبلغ
+          </button>
+        </div>
+      </div>
+
+      <div class="supporters-list" id="supportersListContainer">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- Right Column: Add / Edit Form -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title" id="formHeaderTitle">
+          <span>➕ إضافة / تعديل داعم</span>
+        </div>
+        <button type="button" class="btn btn-ghost btn-sm" id="cancelEditBtn" style="display:none;" onclick="cancelEditMode()">
+          ✕ إلغاء التعديل
+        </button>
+      </div>
+
+      <form id="supporterForm" onsubmit="handleFormSubmit(event)">
+        <input type="hidden" id="editIndex" value="-1">
+
+        <div class="form-group">
+          <label>اسم الداعم / اللقب:</label>
+          <input type="text" id="supName" class="form-control" placeholder="مثال: فاعل خير، أحمد م.، أبو فهد" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>قيمة الدعم:</label>
+            <input type="text" id="supAmount" class="form-control" placeholder="مثال: 100 USDT" required>
+          </div>
+          <div class="form-group">
+            <label>المركز / الترتيب:</label>
+            <select id="supRank" class="form-control">
+              <option value="1">المركز 1 🥇</option>
+              <option value="2">المركز 2 🥈</option>
+              <option value="3">المركز 3 🥉</option>
+              <option value="4">المركز 4 🎖️</option>
+              <option value="5">المركز 5 🎖️</option>
+              <option value="auto">تلقائي (حسب المبلغ) ⚡</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>اللقب / الشارة الشرفية:</label>
+          <select id="supLevel" class="form-control">
+            <option value="الداعم الماسي الأول 👑">الداعم الماسي الأول 👑</option>
+            <option value="الداعم البلاتيني 🌟">الداعم البلاتيني 🌟</option>
+            <option value="الداعم الذهبي ☕">الداعم الذهبي ☕</option>
+            <option value="داعم مميز 💎">داعم مميز 💎</option>
+            <option value="محب لتطوير اللعبة ✨">محب لتطوير اللعبة ✨</option>
+            <option value="متاح للانضمام">متاح للانضمام (شاغر)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>ملاحظة / كلمة الداعم:</label>
+          <input type="text" id="supNote" class="form-control" placeholder="مثال: شكراً على اللعبة الجميلة وتطوير النسخة العربية">
+        </div>
+
+        <div class="form-group">
+          <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+            <input type="checkbox" id="supVacant" style="width:18px; height:18px;">
+            <span>تعيين هذا المكان كـ (شاغر / متاح للتبرع والظهور)</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-gold" style="width:100%; justify-content:center; padding:12px;" id="formSubmitBtn">
+          ➕ حفظ الداعم وتحديث القائمة
+        </button>
+      </form>
+
+      <!-- Security / Change Password Box -->
+      <div style="margin-top:24px; padding-top:16px; border-top:1px solid var(--border);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:13px; font-weight:700; color:var(--ink2);">🛡️ حماية لوحة التحكم:</span>
+          <button type="button" class="btn btn-ghost btn-sm" onclick="changeAdminPassword()">
+            🔑 تغيير كلمة المرور
+          </button>
+        </div>
+      </div>
+
+      <!-- Backup / Export Section -->
+      <div style="margin-top:16px; padding-top:16px; border-top:1px solid var(--border);">
+        <label style="font-size:12.5px; color:var(--ink3); display:block; margin-bottom:6px;">
+          💾 كود النسخ الاحتياطي الرسمي (JSON):
+        </label>
+        <textarea id="jsonBackupArea" class="code-editor" readonly onclick="this.select()"></textarea>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <button type="button" class="btn btn-ghost btn-sm" onclick="copyJsonBackup()" style="flex:1;">
+            📋 نسخ البيانات
+          </button>
+          <button type="button" class="btn btn-ghost btn-sm" onclick="importJsonPrompt()" style="flex:1;">
+            📥 استيراد كود
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast">✅ تم الحفظ بنجاح!</div>
+
+<script>
+// --- Admin Security System ---
+const DEFAULT_PASS = "123456"; // Default password, can be changed via dashboard
+
+function getStoredPass() {
+  return localStorage.getItem("ar_admin_pass") || DEFAULT_PASS;
+}
+
+function handleLogin(e) {
+  e.preventDefault();
+  const input = document.getElementById("adminPassInput").value;
+  const currentPass = getStoredPass();
+
+  if (input === currentPass) {
+    sessionStorage.setItem("ar_admin_auth", "true");
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("dashboardContent").style.display = "block";
+    loadSupporters();
+    renderList();
+    showToast("🔓 تم تسجيل الدخول بنجاح!");
+  } else {
+    document.getElementById("loginError").style.display = "block";
+  }
+}
+
+function handleLogout() {
+  sessionStorage.removeItem("ar_admin_auth");
+  window.location.reload();
+}
+
+function changeAdminPassword() {
+  const oldP = prompt("أدخل كلمة المرور الحالية:");
+  if (oldP !== getStoredPass()) {
+    alert("كلمة المرور الحالية غير صحيحة!");
+    return;
+  }
+  const newP = prompt("أدخل كلمة المرور الجديدة:");
+  if (!newP || newP.trim().length < 4) {
+    alert("كلمة المرور يجب أن لا تقل عن 4 خانات.");
+    return;
+  }
+  localStorage.setItem("ar_admin_pass", newP.trim());
+  showToast("🔑 تم تغيير كلمة المرور بنجاح!");
+}
+
+// Auto-check session on load
+if (sessionStorage.getItem("ar_admin_auth") === "true") {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("dashboardContent").style.display = "block";
+}
+
+// --- Supporters Management ---
+const DEFAULT_SUPPORTERS = [
+  { rank: 1, medal: "🥇", name: "فاعل خير 👑", amount: "100 USDT", note: "الداعم الأكبر لتطوير واستضافة سيرفرات اللعبة", level: "الداعم الماسي الأول 👑" },
+  { rank: 2, medal: "🥈", name: "داعم سري 🌟", amount: "50 USDT", note: "مساهمة كريمة لاستمرار النسخة العربية", level: "الداعم البلاتيني 🌟" },
+  { rank: 3, medal: "🥉", name: "أحمد م. ☕", amount: "30 USDT", note: "عاشق للألعاب ومحب للتطوير المستمر", level: "الداعم الذهبي ☕" },
+  { rank: 4, medal: "🎖️", name: "شاغر · تبرع لتظهر هنا ✨", amount: "---", note: "مكان مخصص للمساهمين عبر بايننس", level: "متاح للانضمام", vacant: true },
+  { rank: 5, medal: "🎖️", name: "شاغر · تبرع لتظهر هنا ✨", amount: "---", note: "مكان مخصص للمساهمين عبر بايننس", level: "متاح للانضمام", vacant: true }
+];
+
+let currentSupporters = [];
+
+function escapeHtml(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function loadSupporters() {
+  try {
+    const raw = localStorage.getItem("ar_top_supporters");
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        currentSupporters = parsed;
+        return;
+      }
+    }
+  } catch(e) {}
+  currentSupporters = JSON.parse(JSON.stringify(DEFAULT_SUPPORTERS));
+}
+
+function saveSupporters() {
+  try {
+    localStorage.setItem("ar_top_supporters", JSON.stringify(currentSupporters));
+    updateBackupArea();
+    updateStats();
+  } catch(e) {
+    console.error("Storage error:", e);
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.innerHTML = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2500);
+}
+
+function updateStats() {
+  const activeCount = currentSupporters.filter(s => !s.vacant).length;
+  document.getElementById("statCount").innerText = `${activeCount} من ${currentSupporters.length}`;
+  
+  let totalUsdt = 0;
+  currentSupporters.forEach(s => {
+    if (!s.vacant && s.amount) {
+      const match = s.amount.match(/(\d+(\.\d+)?)/);
+      if (match) totalUsdt += parseFloat(match[1]);
+    }
+  });
+  document.getElementById("statTotalUSDT").innerText = totalUsdt > 0 ? `${totalUsdt} USDT` : "---";
+
+  const top1 = currentSupporters[0];
+  document.getElementById("statTopName").innerText = top1 && !top1.vacant ? top1.name : "شاغر ✨";
+}
+
+function updateBackupArea() {
+  const area = document.getElementById("jsonBackupArea");
+  if (area) {
+    area.value = JSON.stringify(currentSupporters, null, 2);
+  }
+}
+
+function renderList() {
+  const container = document.getElementById("supportersListContainer");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  currentSupporters.forEach((sup, idx) => {
+    const rankNum = idx + 1;
+    sup.rank = rankNum;
+    if (rankNum === 1) sup.medal = "🥇";
+    else if (rankNum === 2) sup.medal = "🥈";
+    else if (rankNum === 3) sup.medal = "🥉";
+    else sup.medal = "🎖️";
+
+    const item = document.createElement("div");
+    item.className = `supporter-item rank-${rankNum} ${sup.vacant ? 'vacant' : ''}`;
+    item.innerHTML = `
+      <div class="item-right">
+        <span class="item-medal">${sup.medal}</span>
+        <div class="item-details">
+          <h4>
+            <span>#${rankNum}</span>
+            <span>${escapeHtml(sup.name)}</span>
+          </h4>
+          <p>${escapeHtml(sup.note || "لا توجد ملاحظة")}</p>
+        </div>
+      </div>
+      <div class="item-left">
+        <div class="item-amount-box">
+          <div class="item-amount">${escapeHtml(sup.amount)}</div>
+          <div class="item-level">${escapeHtml(sup.level || "")}</div>
+        </div>
+        <div class="item-actions">
+          <button type="button" class="act-btn" onclick="moveSupporter(${idx}, -1)" title="تقديم المركز للأعلى" ${idx === 0 ? 'disabled style="opacity:0.4;"' : ''}>⬆️</button>
+          <button type="button" class="act-btn" onclick="moveSupporter(${idx}, 1)" title="تأخير المركز للأسفل" ${idx === currentSupporters.length - 1 ? 'disabled style="opacity:0.4;"' : ''}>⬇️</button>
+          <button type="button" class="act-btn" onclick="startEditSupporter(${idx})" title="تعديل بيانات الداعم">✏️</button>
+          <button type="button" class="act-btn del" onclick="deleteOrVacate(${idx})" title="حذف أو تفريغ المكان">🗑️</button>
+        </div>
+      </div>
+    `;
+    container.appendChild(item);
+  });
+
+  updateStats();
+  updateBackupArea();
+}
+
+function moveSupporter(idx, dir) {
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= currentSupporters.length) return;
+  const temp = currentSupporters[idx];
+  currentSupporters[idx] = currentSupporters[newIdx];
+  currentSupporters[newIdx] = temp;
+  saveSupporters();
+  renderList();
+  showToast("🔄 تم تحديث الترتيب والمراكز!");
+}
+
+function startEditSupporter(idx) {
+  const sup = currentSupporters[idx];
+  if (!sup) return;
+
+  document.getElementById("editIndex").value = idx;
+  document.getElementById("supName").value = sup.name || "";
+  document.getElementById("supAmount").value = sup.amount || "";
+  document.getElementById("supRank").value = (idx + 1).toString();
+  document.getElementById("supNote").value = sup.note || "";
+  document.getElementById("supLevel").value = sup.level || "الداعم الماسي الأول 👑";
+  document.getElementById("supVacant").checked = !!sup.vacant;
+
+  document.getElementById("formHeaderTitle").innerHTML = `<span>✏️ تعديل الداعم #${idx + 1}</span>`;
+  document.getElementById("formSubmitBtn").innerHTML = `💾 حفظ التعديلات على #${idx + 1}`;
+  document.getElementById("cancelEditBtn").style.display = "inline-flex";
+
+  if (window.innerWidth < 880) {
+    document.getElementById("supporterForm").scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+function cancelEditMode() {
+  document.getElementById("editIndex").value = "-1";
+  document.getElementById("supporterForm").reset();
+  document.getElementById("formHeaderTitle").innerHTML = `<span>➕ إضافة / تعديل داعم</span>`;
+  document.getElementById("formSubmitBtn").innerHTML = `➕ حفظ الداعم وتحديث القائمة`;
+  document.getElementById("cancelEditBtn").style.display = "none";
+}
+
+function handleFormSubmit(e) {
+  e.preventDefault();
+  const editIdx = parseInt(document.getElementById("editIndex").value);
+  const name = document.getElementById("supName").value.trim();
+  const amount = document.getElementById("supAmount").value.trim();
+  const rankVal = document.getElementById("supRank").value;
+  const note = document.getElementById("supNote").value.trim();
+  const level = document.getElementById("supLevel").value;
+  const vacant = document.getElementById("supVacant").checked;
+
+  const entry = {
+    name: name,
+    amount: amount,
+    note: note,
+    level: level,
+    vacant: vacant
+  };
+
+  if (editIdx >= 0 && editIdx < currentSupporters.length) {
+    currentSupporters[editIdx] = { ...currentSupporters[editIdx], ...entry };
+    showToast(`✅ تم تحديث بيانات الداعم #${editIdx + 1}!`);
+  } else {
+    if (rankVal === "auto" || rankVal === "1") {
+      currentSupporters.unshift(entry);
+    } else {
+      const targetPos = parseInt(rankVal) - 1;
+      currentSupporters.splice(targetPos, 0, entry);
+    }
+    if (currentSupporters.length > 5) {
+      const lastVacantIdx = currentSupporters.findLastIndex(s => s.vacant);
+      if (lastVacantIdx >= 5) currentSupporters.splice(lastVacantIdx, 1);
+    }
+    showToast(`🎉 تمت إضافة الداعم ${name} بنجاح!`);
+  }
+
+  saveSupporters();
+  renderList();
+  cancelEditMode();
+}
+
+function deleteOrVacate(idx) {
+  const sup = currentSupporters[idx];
+  if (confirm(`هل أنت متأكد من تفريغ أو حذف المركز #${idx + 1} (${sup.name})؟`)) {
+    currentSupporters[idx] = {
+      rank: idx + 1,
+      medal: "🎖️",
+      name: "شاغر · تبرع لتظهر هنا ✨",
+      amount: "---",
+      note: "مكان متاح لمن يدعم اللعبة عبر Binance",
+      level: "متاح للانضمام",
+      vacant: true
+    };
+    saveSupporters();
+    renderList();
+    showToast("🗑️ تم تفريغ المكان وأصبح متاحاً للداعمين الجدد!");
+  }
+}
+
+function resetToDefaults() {
+  if (confirm("هل ترغب حقاً في استعادة قائمة أفضل الداعمين الافتراضية؟")) {
+    currentSupporters = JSON.parse(JSON.stringify(DEFAULT_SUPPORTERS));
+    saveSupporters();
+    renderList();
+    showToast("🔄 تم استعادة القائمة الافتراضية بنجاح!");
+  }
+}
+
+function autoSortByAmount() {
+  currentSupporters.sort((a, b) => {
+    if (a.vacant && !b.vacant) return 1;
+    if (!a.vacant && b.vacant) return -1;
+    const matchA = (a.amount || "").match(/(\d+(\.\d+)?)/);
+    const matchB = (b.amount || "").match(/(\d+(\.\d+)?)/);
+    const valA = matchA ? parseFloat(matchA[1]) : 0;
+    const valB = matchB ? parseFloat(matchB[1]) : 0;
+    return valB - valA;
+  });
+  saveSupporters();
+  renderList();
+  showToast("📊 تم فرز وترتيب الداعمين حسب المبلغ تلقائياً!");
+}
+
+function saveAllAndSync() {
+  saveSupporters();
+  showToast("⚡ تم حفظ وتحديث قائمة الداعمين في اللعبة مباشرة!");
+}
+
+function copyJsonBackup() {
+  const area = document.getElementById("jsonBackupArea");
+  area.select();
+  navigator.clipboard.writeText(area.value);
+  showToast("📋 تم نسخ كود البيانات للحافظة!");
+}
+
+function importJsonPrompt() {
+  const input = prompt("الصق كود البيانات (JSON):");
+  if (!input) return;
+  try {
+    const parsed = JSON.parse(input);
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      currentSupporters = parsed;
+      saveSupporters();
+      renderList();
+      showToast("📥 تم استيراد البيانات بنجاح!");
+    } else {
+      alert("البيانات المدخلة غير صالحة.");
+    }
+  } catch(e) {
+    alert("خطأ في قراءة كود JSON: " + e.message);
+  }
+}
+
+// Initial setup if logged in
+if (sessionStorage.getItem("ar_admin_auth") === "true") {
+  loadSupporters();
+  renderList();
+}
+</script>
+
+</body>
+</html>

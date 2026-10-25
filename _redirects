@@ -1,0 +1,5 @@
+# Netlify Clean URLs Configuration
+/index.html         /           301!
+/ar/index.html      /           301!
+/ar                 /           301!
+/ar/                /           301!
